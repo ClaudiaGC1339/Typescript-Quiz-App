@@ -40,9 +40,13 @@ function App() {
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if(!gameOver){
+      // User answer
       const answer = e.currentTarget.value;
+      // Comparing the user answer to the correct answer
       const correct = questions[number].correct_answer === answer;
+      // Add score if answer is correct
       if(correct) setScore(prev => prev + 1);
+      // Save answer to the user answers array
       const answerobject = {
         question: questions[number].question,
         answer,
@@ -53,7 +57,16 @@ function App() {
     }
   };
 
-  const nextQuestion = () => {};
+  const nextQuestion = () => {
+    // Move onto the next/last question
+    const nextQuestion = number + 1;
+
+    if(nextQuestion === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    } else {
+      setNumber(nextQuestion);
+    }
+  };
 
   return (
     <div className="App">
